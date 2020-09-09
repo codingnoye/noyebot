@@ -1,12 +1,10 @@
 const Module = require('../../libs/Module')
-const routes = {
+const prob = require('./prob')
 
+const routes = {
+    'prob': prob
 }
 const operate = (command, msg) => {
-    if (!isNaN(command)) {
-        msg.channel.send(`${command}번 문제`)
-        return true
-    }
     return false
 }
 

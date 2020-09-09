@@ -1,29 +1,22 @@
 'use strict'
-const Discord = require('discord.js');
 require('dotenv').config()
 
-const Module = require('./libs/Module')
-const parse = require('./libs/parse');
-
+const Discord = require('discord.js')
+const client = new Discord.Client()
 const TOKEN = process.env.TOKEN
-const client = new Discord.Client();
+const Bot = require('./libs/Bot')
 
-// for test
-const baekjoon = require('./pkgs/baekjoon')
-const mainRoutes = {
-    'baekjoon': baekjoon
-}
-const mainOperate = (command, msg) => {
-    
-}
-const main = new Module(mainRoutes, mainOperate)
+const bots = {}
 
-client.on('message', msg => {
-    if (msg.author.bot) return
-    const parsed = parse(msg.content, '$')
-    if (parsed) {
-        main.call(parsed, msg)
+client.on('message', (msg) => {
+    const gid = msg.guild.id
+    if (!(gid in bots)) {
+        // 서버 정보 불러오기
+        // 패키지 로드하기
+        console.log(`${msg.guild.name} 서버 로드됨`)
+        bots[gid] = new Bot(msg.guild, client, {prefix: '!'})
     }
+    const bot = bots[gid]
+    bot.emit('message', msg)
 })
-
 client.login(TOKEN)
