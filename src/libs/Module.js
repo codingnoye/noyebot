@@ -7,6 +7,11 @@ class Module {
         this.routes = routes
         for (const keyword in this.routes) {
             const module = this.routes[keyword]
+            // 부가 기능:
+            // routes에 다른 Module이 들어있지 않고 'keyword': Function 형태로 들어있다면
+            // 알아서 Module({}, Function)로 변환해서 사용
+            // 'keyword': Object로 들어있다면
+            // 알아서 Module(Object)로 변환
             if (!(module instanceof Module)) {
                 if (module instanceof Function) this.routes[keyword] = new Module({}, module)
                 else this.routes[keyword] = new Module(module)

@@ -10,6 +10,16 @@ const data = require('./libs/data')
 
 const pkgs = require('./libs/pkgs')
 
+const pkg_modules = [
+    require('./pkgs/core'),
+    require('./pkgs/baekjoon'),
+    require('./pkgs/conch')
+]
+
+for (const pkg of pkg_modules) {
+    pkgs[pkg.name] = pkg
+}
+
 client.on('message', (msg) => {
     const gid = msg.guild.id
     if (!(gid in bots)) {
