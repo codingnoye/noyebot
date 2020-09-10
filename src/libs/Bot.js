@@ -1,10 +1,7 @@
 const EventEmitter = require('events');
-const Discord = require('discord.js')
 
 const parse = require('./parse')
-const Module = require('./Module')
-
-const defaultPkg = require('../pkgs/default')
+const data = require('../libs/data')
 
 class Bot extends EventEmitter {
     constructor (guild, client, setting) {
@@ -40,7 +37,6 @@ class Bot extends EventEmitter {
                 pkg.emit('message', msg)
             }
         })
-        this.load(defaultPkg)
     }
     load (pkg) {
         this.pkgMap[pkg.name] = this.pkgs.length
@@ -48,7 +44,7 @@ class Bot extends EventEmitter {
         pkg.emit('load', this.guild.id)
     }
     unload (pkg) {
-        this.pkgs.splice(this.pkgMap[pkg.name])
+        this.pkgs.splice(this.pkgMap[pkg.name], 1)
         this.pkgMap[pkg.name] = undefined
         pkg.emit('unload', this.guild.id)
     }

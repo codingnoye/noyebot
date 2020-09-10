@@ -5,6 +5,13 @@ class Module {
      */
     constructor (routes, operate = (command, msg) => {return false}) {
         this.routes = routes
+        for (const keyword in this.routes) {
+            const module = this.routes[keyword]
+            if (!(module instanceof Module)) {
+                if (module instanceof Function) this.routes[keyword] = new Module({}, module)
+                else this.routes[keyword] = new Module(module)
+            }
+        }
         this.operate = operate
     }
     /** @description 모듈 호출
