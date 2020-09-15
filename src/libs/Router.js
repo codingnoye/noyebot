@@ -1,4 +1,4 @@
-class Module {
+class Router {
     /** @description 모듈
      * @param {Object[]} Routes '명령어': '모듈'로 구성된 하위 모듈들
      * @param {function} Operate 하위 모듈로 전달되지 않고 호출되었을 때 실행될 함수
@@ -6,15 +6,15 @@ class Module {
     constructor (routes, operate = (command, msg) => {return false}) {
         this.routes = routes
         for (const keyword in this.routes) {
-            const module = this.routes[keyword]
+            const route = this.routes[keyword]
             // 부가 기능:
-            // routes에 다른 Module이 들어있지 않고 'keyword': Function 형태로 들어있다면
-            // 알아서 Module({}, Function)로 변환해서 사용
+            // routes에 다른 Router이 들어있지 않고 'keyword': Function 형태로 들어있다면
+            // 알아서 Router({}, Function)로 변환해서 사용
             // 'keyword': Object로 들어있다면
-            // 알아서 Module(Object)로 변환
-            if (!(module instanceof Module)) {
-                if (module instanceof Function) this.routes[keyword] = new Module({}, module)
-                else this.routes[keyword] = new Module(module)
+            // 알아서 Router(Object)로 변환
+            if (!(route instanceof Router)) {
+                if (route instanceof Function) this.routes[keyword] = new Router({}, route)
+                else this.routes[keyword] = new Router(route)
             }
         }
         this.operate = operate
@@ -34,4 +34,4 @@ class Module {
     }
 }
 
-module.exports = Module
+module.exports = Router

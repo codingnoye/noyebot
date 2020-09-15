@@ -11,6 +11,7 @@ const data = require('./libs/data')
 const pkgs = require('./libs/pkgs')
 
 const pkg_modules = [
+    //require('./pkgs/template'),
     require('./pkgs/core'),
     require('./pkgs/baekjoon'),
     require('./pkgs/conch')
@@ -41,4 +42,5 @@ client.once('ready', () => {
     console.log('서버 시작')
     client.user.setPresence({ activity: { name: `${data.guild.load('default').prefix}help | ${client.guilds.cache.array().length}개의 서버에서 노동` }, status: 'online' })
 })
+global.client = client
 client.login(TOKEN)

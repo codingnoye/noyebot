@@ -30,11 +30,11 @@ class Bot extends EventEmitter {
             if (msg.author.bot) return
             
             // 명령어 처리
-            const parsed = parse(msg.content, prefix)
+            const parsed = parse(msg.content, this.prefix)
             let worked = false
             if (parsed) {
                 for (const pkg of this.pkgs) {
-                    worked = pkg.module.call(parsed, msg)
+                    worked = pkg.router.call(parsed, msg)
                     if (worked) break
                 }
                 if (!worked) {

@@ -1,21 +1,20 @@
 const EventEmitter = require('events');
-const { Message } = require('discord.js');
-const Module = require('./Module');
+const Router = require('./Router');
 class Package extends EventEmitter {
     /** @description 패키지
-     * @param {Module|Object} module 메시지를 처리할 모듈
+     * @param {Router|Object} router 메시지를 처리할 라우터
      * @param {String} name 패키지의 이름
      * @param {String} desc 패키지의 설명, 간단한 도움말.
-     * @param {Function} help 도움말을 호출했을 때 동작하는 함수
-     * @param {String[]} helpSimple 간단한 텍스트 도움말
+     * @param {Function|String[]} help 도움말을 호출했을 때 동작하는 함수 또는 helpSimple
+     * @param {String[]} helpSimple 인라인 도움말
      */
-    constructor (module, name, desc, help, helpSimple) {
+    constructor (router, name, desc, help, helpSimple) {
         super()
-        if (!(module instanceof Module)) {
-            if (module instanceof Function) module = new Module({}, module)
-            else module = new Module(module)
+        if (!(router instanceof Router)) {
+            if (router instanceof Function) router = new Router({}, router)
+            else router = new Router(router)
         }
-        this.module = module
+        this.router = router
         this.name = name
         this.desc = desc
         this.help = help

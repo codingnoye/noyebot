@@ -18,7 +18,19 @@ const help = (command, msg) => {
         msg.channel.send({embed})
     } else {
         if (command in bot.pkgMap) {
-            bot.pkgs[bot.pkgMap[command]].help(msg)
+            const pkg = bot.pkgs[bot.pkgMap[command]]
+            if (pkg.help instanceof Array) {
+                const embed = new MessageEmbed()
+                    .setColor(0x428bca)
+                const helps = [`${pkg.desc}`]
+                for (const help of pkg.help) {
+                    helps.push(help.replace('@', bot.setting.prefix))
+                }
+                embed.addField(`${pkg.name}`, helps.join('\n'))
+                msg.channel.send({embed})
+            } else {
+                pkg.help(msg)
+            }
         } else {
             msg.channel.send(`${command} 패키지를 찾을 수 없습니다.`)
         }

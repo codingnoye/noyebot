@@ -1,11 +1,17 @@
-const Module = require('../../libs/Module')
-const prob = require('./prob')
+const Router = require('../../libs/Router')
+const add = require('./cmd/add')
+const init = require('./cmd/init')
+const prob = require('./cmd/prob')
+const user = require('./cmd/user')
+const users = require('./cmd/users')
 
 const routes = {
-    'prob': prob
+    prob: prob,
+    add: add,
+    init: init,
+    user: user,
+    users: users
 }
-const operate = (command, msg) => {
-    return false
-}
+const operate = prob
 
-module.exports = new Module(routes, operate)
+module.exports = new Router(routes, operate)
