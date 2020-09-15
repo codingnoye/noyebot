@@ -14,7 +14,8 @@ const pkg_modules = [
     //require('./pkgs/template'),
     require('./pkgs/core'),
     require('./pkgs/baekjoon'),
-    require('./pkgs/conch')
+    require('./pkgs/conch'),
+    require('./pkgs/timer')
 ]
 
 for (const pkg of pkg_modules) {
