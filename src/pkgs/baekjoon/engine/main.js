@@ -15,7 +15,7 @@ const defaultSetting = {
 //     guildId: {
 //          users: [],
 //          channel: 알림 받을 채널
-//     }}
+//     }
 // }
 // userLevels: {
 //     username: userLevel
