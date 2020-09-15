@@ -51,6 +51,8 @@ Noyebot
 6. `hello.routes.world.call()`가 호출됨. 
 7. `world`에게는 하위 라우터가 없으므로 `operate`가 실행된다.
 8. "Hello, world!"가 출력된다.
+
+
 또 다른 예시
 1. `!hello noye`라는 메시지가 bot에게 전달됨.
 2. 파싱되어 `["hello", "noye"]`로 변환됨
