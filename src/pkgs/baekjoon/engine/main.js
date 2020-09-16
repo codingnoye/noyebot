@@ -53,7 +53,8 @@ const daemon = {
                 const guild = setting.guilds[guildId]
                 if (guild.users.includes(user)) {
                     client.channels.fetch(guild.channel).then((channel)=>{
-                        channel.send({embed})
+                        if (channel.viewable)
+                            channel.send({embed})
                     })
                 }
             }
@@ -80,7 +81,8 @@ const daemon = {
                     const guild = setting.guilds[guildId]
                     if (guild.users.includes(user.name)) {
                         client.channels.fetch(guild.channel).then((channel)=>{
-                            channel.send({embed})
+                            if (channel.viewable)
+                                channel.send({embed})
                         })
                     }
                 }
