@@ -2,7 +2,7 @@ const Package = require('../../libs/Package')
 const main = require("./main")
 
 const helpSimple = [
-    '`@timer set <num>` 주어진 시간 뒤에 울립니다.',
+    '`@timer set <sec>` 주어진 시간 뒤에 울립니다.',
     '`@timer clear` 알람을 초기화합니다.'
 ]
 

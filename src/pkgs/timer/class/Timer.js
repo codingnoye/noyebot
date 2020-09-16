@@ -14,13 +14,13 @@ class Timer {
      * @param { Message } msg 
      */
     clear(msg) {
-        const ID = msg.author.id
-        if (this.runningTimer[ID]) {
-            clearTimeout(this.runningTimer[ID].time)
-            this.runningTimer[ID] = null
-            msg.channel.send(`<@${ID}> 알람이 초기화됩니다.`)
+        const uid = msg.author.id
+        if (this.runningTimer[uid]) {
+            clearTimeout(this.runningTimer[uid].time)
+            this.runningTimer[uid] = null
+            msg.channel.send(`알람이 초기화됩니다.`)
         } else {
-            msg.channel.send(`<@${ID}> 초기화할 알람이 없습니다.`)
+            msg.channel.send(`초기화할 알람이 없습니다.`)
         }
         return true
     }
@@ -30,27 +30,24 @@ class Timer {
      */
     set(cmd, msg) {
         if (cmd.length) {
-            let time;
-            try {
-                time = eval(cmd)
-            } catch {
+            if (isNaN(cmd)) {
                 msg.channel.send("제대로된 시간이 아닙니다.")
                 return true
-            }
+            } 
+            const time = parseInt(cmd)
 
-            
-            const ID = msg.author.id
-            if (this.runningTimer[ID]) {
+            const uid = msg.author.id
+            if (this.runningTimer[uid]) {
                 this.clear(msg)
-                msg.channel.send(`<@${ID}> ${time}초로 업데이트 되었습니다.`)
+                msg.channel.send(`${time}초로 업데이트 되었습니다.`)
             } else {
-                msg.channel.send(`<@${ID}> ${time}초 뒤에 알람이 울립니다.`)
+                msg.channel.send(`${time}초 뒤에 알람이 울립니다.`)
             }
 
-            this.runningTimer[ID] = {
+            this.runningTimer[uid] = {
                 time: setTimeout(() => {
-                    msg.channel.send(`<@${ID}> 시간이 다됬습니다.`)
-                    this.runningTimer[ID] = null
+                    msg.channel.send(`<@${uid}> 시간이 다 됐습니다.`)
+                    this.runningTimer[uid] = null
                 }, 1000 * time),
                 endAt: new Date().getTime() + 1000 * time
             }
@@ -63,16 +60,14 @@ class Timer {
      * @param { Message } msg 
      */
     get(msg) {
-        const ID = msg.author.id
+        const uid = msg.author.id
 
-        if (this.runningTimer[ID]) {
+        if (this.runningTimer[uid]) {
             const currentAt = new Date().getTime()
-            let remain = this.runningTimer[ID].endAt - currentAt
-            remain /= 1000
-            remain = parseInt(remain)
-            msg.channel.send(`<@${ID}> ${remain}초 남았습니다.`)
+            const remain = parseInt((this.runningTimer[uid].endAt - currentAt)/1000)
+            msg.channel.send(`${remain}초 남았습니다.`)
         } else {
-            msg.channel.send(`<@${ID}> 설정된 알람이 없습니다.`)
+            msg.channel.send(`설정된 알람이 없습니다.`)
         }
         return true
     }
