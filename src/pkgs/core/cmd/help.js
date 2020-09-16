@@ -24,7 +24,7 @@ const help = (command, msg) => {
                     .setColor(0x428bca)
                 const helps = [`${pkg.desc}`]
                 for (const help of pkg.help) {
-                    helps.push(help.replace('@', bot.setting.prefix))
+                    helps.push(help.replace(/@/g, bot.setting.prefix))
                 }
                 embed.addField(`${pkg.name}`, helps.join('\n'))
                 msg.channel.send({embed})
