@@ -25,7 +25,7 @@ const routes = {
     disable: (command, msg) => {
         const bot = bots[msg.guild.id]
         if (command in bot.pkgMap) {
-            bot.setting.pkgs.splice(this.pkgMap[pkg.name], 1)
+            bot.setting.pkgs.splice(bot.pkgMap[command], 1)
             msg.channel.send(`${bot.pkgs[bot.pkgMap[command]].name} 패키지가 비활성화 되었습니다.`)
             bot.unload(bot.pkgs[bot.pkgMap[command]])
             data.guild.save(msg.guild.id, bot.setting)

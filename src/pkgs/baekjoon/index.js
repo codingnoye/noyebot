@@ -1,5 +1,20 @@
+const bots = require('../../libs/bots')
 const Package = require('../../libs/Package')
-const main = require('./main')
+const Router = require('../../libs/Router')
+const add = require('./cmd/add')
+const init = require('./cmd/init')
+const prob = require('./cmd/prob')
+const user = require('./cmd/user')
+const users = require('./cmd/users')
+const main = require('./engine/main')
+
+const routes = {
+    prob: prob,
+    add: add,
+    init: init,
+    user: user,
+    users: users
+}
 
 const helpSimple = [
     '1. 크롤링 리스트에 단체를 등록합니다.',
@@ -13,11 +28,17 @@ const helpSimple = [
 ]
 
 const package = new Package(
-    {'bj': main},
+    {'bj': new Router(routes, prob)},
     '백준',
     '백준 알림 & 문제 정보',
     helpSimple,
     helpSimple
 )
+
+package.on('unload', (gid) => {
+    if (gid in main.setting.guilds) {
+        delete main.setting.guilds[gid]
+    }
+})
 
 module.exports = package
