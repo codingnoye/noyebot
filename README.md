@@ -61,6 +61,3 @@ Noyebot
 5. `hello.routes` 중 `"noye"`와 일치하는 것이 없으므로 `operate`가 실행된다.
 8. "Hi, noye!"가 출력된다.
 이 예시는 template패키지에 적용되어 있으므로, 필요하다면 `main.js`의 `pkg_modules`에서 로드하고 `!pkg enable 템플릿`으로 활성화해 테스트해보자.
-# 기타
-* 디스코드 `코딩노예 #1483`
-* PR 환영
